@@ -106,23 +106,22 @@ const main = () => {
         }
     });
     
-    let newArray = [];
+    let uniqueItems = new Map();
     for (let i = 0; i < referenceMap.length; i++) {
         const element1 = referenceMap[i];
         for (let j = 0; j < referenceMap.length; j++) {
             const element2 = referenceMap[j];
             if (element1.package === element2.package && element1.version !== element2.version && element1.version !== undefined && element2.version !== undefined) {
                 // if the package match and not the version then add to new array
-                log(`${colors.fg.Green}${element1.package} ${colors.fg.Cyan}${element1.version} !== ${element2.version}${colors.Reset}`)
-                // newArray.push(element1);
-                newArray.push(element2);
+                uniqueItems.set(element1.package, `${colors.fg.Green}${element1.package} ${colors.fg.Cyan}${element1.version} !== ${element2.version}${colors.Reset}}`);  // ${element1.file}, ${element2.file
                 break;
             }
         }
     }
-    if (newArray.length > 0) {
-        log(`${colors.fg.Red}Opps found mismatch in ${newArray.length} versions${colors.Reset}`);
-        // log(newArray);
+
+    if (uniqueItems.size > 0) {
+        log(`${colors.fg.Red}Opps found mismatch in ${uniqueItems.size} packages${colors.Reset}`);
+        uniqueItems.forEach((value, key) => log(value));
     } else {
         log(`${colors.fg.Green}Congrats! all the packages have the same version!${colors.Reset}`)
     }
