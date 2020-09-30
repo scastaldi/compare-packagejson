@@ -95,9 +95,9 @@ const main = () => {
                     referenceMap.push({prop:prop + ',' + att.dependencies[prop], file:f, package:prop, version:att.dependencies[prop]}) // save unique values here of all props in all files
                 }
                 for (let prop in att.devDependencies) {
-                    // log(prop, att.dependencies[prop]);
+                    // log(prop, att.devDependencies[prop]);
                     uniqueReferences.add(prop);
-                    referenceMap.push({prop:prop + ',' + att.dependencies[prop], file:f, package:prop, version:att.dependencies[prop]}) // save unique values here of all props in all files
+                    referenceMap.push({prop:prop + ',' + att.devDependencies[prop], file:f, package:prop, version:att.devDependencies[prop]}) // save unique values here of all props in all files
                 }
             } else {
                 log(`${colors.fg.Red}file does not exist: ${f}${colors.Reset}`);
@@ -113,7 +113,7 @@ const main = () => {
             const element2 = referenceMap[j];
             if (element1.package === element2.package && element1.version !== element2.version && element1.version !== undefined && element2.version !== undefined) {
                 // if the package match and not the version then add to new array
-                uniqueItems.set(element1.package, `${colors.fg.Green}${element1.package} ${colors.fg.Cyan}${element1.version} !== ${element2.version}${colors.Reset}}`);  // ${element1.file}, ${element2.file
+                uniqueItems.set(element1.package, `${colors.fg.Green}${element1.package} ${colors.fg.Cyan}${element1.version} !== ${element2.version}${colors.Reset}`);  // ${element1.file}, ${element2.file
                 break;
             }
         }
